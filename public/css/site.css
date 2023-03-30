@@ -1,0 +1,9 @@
+body{
+    font-family: 'Figtree', sans-serif;
+}
+.p-4{
+    padding: 1rem;
+}
+nav a {
+    padding:.5rem;
+}
