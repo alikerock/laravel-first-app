@@ -19,9 +19,9 @@
     <body class="antialiased">
         <div class="relative p-4">
             <nav>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">contact</a>
+                <a href="{{route('home.index')}}">Home</a>
+                <a href="{{route('home.about')}}">About</a>
+                <a href="{{route('home.contact')}}">contact</a>
             </nav>
         </div>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">            

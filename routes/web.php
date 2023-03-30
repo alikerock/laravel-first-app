@@ -4,18 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-    // return '<h1>hello laravel</h1>';
-});
-
-Route::get('/about', function () {    
-    return view('about');
-});
-
-Route::get('/contact', function () {    
-    return view('contact');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('/store/{category?}/{item?}', function ($category=null, $item=null) {
 
