@@ -7,13 +7,24 @@ use Illuminate\Http\Request;
 
 class BikeController extends Controller
 {
+    private static function getData(){
+        return[
+            ['id'=>1, 'name' => "S-Works Venge Di2-Sagan Collection", 'brand' =>'Specialized', 'price'=>'14,551,040원'],
+            ['id'=>2, 'name' => "S-Works Tarmac SL7", 'brand' =>'Specialized', 'price'=>'18,738,901원'],
+            ['id'=>3, 'name' => "Pinarello Dogma F12 Disk", 'brand' =>'Pinarello', 'price'=>'17,035,364원'],
+            ['id'=>1, 'name' => "BMC Teammachine SLR 01 Disc", 'brand' =>'BMC', 'price'=>'20,584,399원'],
+        ];
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //GET
-        return view('bikes.index');
+        return view('bikes.index', [
+            'bikes' => self::getData(),
+            'userInput' => '<script>alert("hello")</script>'
+        ]);
     }
 
     /**
