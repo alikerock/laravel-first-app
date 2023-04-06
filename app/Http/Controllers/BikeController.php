@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Bike;
 
 class BikeController extends Controller
 {
@@ -22,7 +23,7 @@ class BikeController extends Controller
     {
         //GET
         return view('bikes.index', [
-            'bikes' => self::getData(),
+            'bikes' => Bike::all(),
             'userInput' => '<script>alert("hello")</script>'
         ]);
     }
@@ -33,6 +34,7 @@ class BikeController extends Controller
     public function create()
     {
         //
+        return view('bikes.create');
     }
 
     /**
@@ -40,7 +42,15 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //POST
+        $bike = new Bike(); //로드한 bike 모델을 통해 새 인스턴스(객체) 생성
+
+        $bike->name = $request->input('bike-name');
+        $bike->brand = $request->input('bike-brand');
+        $bike->price = $request->input('bike-price');
+
+        $bike->save();
+        return redirect()->route('bikes.index'); //table에 값 index 페이지로 이동
     }
 
     /**
