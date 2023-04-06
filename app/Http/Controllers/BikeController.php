@@ -12,7 +12,7 @@ class BikeController extends Controller
             ['id'=>1, 'name' => "S-Works Venge Di2-Sagan Collection", 'brand' =>'Specialized', 'price'=>'14,551,040원'],
             ['id'=>2, 'name' => "S-Works Tarmac SL7", 'brand' =>'Specialized', 'price'=>'18,738,901원'],
             ['id'=>3, 'name' => "Pinarello Dogma F12 Disk", 'brand' =>'Pinarello', 'price'=>'17,035,364원'],
-            ['id'=>1, 'name' => "BMC Teammachine SLR 01 Disc", 'brand' =>'BMC', 'price'=>'20,584,399원'],
+            ['id'=>4, 'name' => "BMC Teammachine SLR 01 Disc", 'brand' =>'BMC', 'price'=>'20,584,399원'],
         ];
     }
     /**
@@ -46,9 +46,18 @@ class BikeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $bike)
     {
         //
+        $bikes = self::getData();
+        $index = array_search($bike, array_column($bikes, 'id'));
+
+        if($index === false){
+            abort(404);
+        }
+        return view('bikes.show', [
+            'bike'=>$bikes[$index]
+        ]);
     }
 
     /**
