@@ -7,15 +7,30 @@
         @csrf
         <div>
             <label class="text-sm" for="bike-name">Bike name</label>
-            <input class="text-lg border-1" type="text" id="bike-name" name="bike-name">
+            <input class="text-lg border-1" type="text" id="bike-name" value="{{old('bike-name')}}" name="bike-name">
+            @error('bike-name')
+                <div class="form-error">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
         <div>
             <label class="text-sm" for="bike-price">Bike Price</label>
-            <input class="text-lg border-1" type="text" id="bike-price" name="bike-price">
+            <input class="text-lg border-1" type="text" id="bike-price" value="{{old('bike-price')}}" name="bike-price">
+            @error('bike-price')
+                <div class="form-error">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
         <div>
             <label class="text-sm" for="bike-brand">Bike Brand</label>
-            <input class="text-lg border-1" type="text" id="bike-brand" name="bike-brand">
+            <input class="text-lg border-1" type="text" id="bike-brand" value="{{old('bike-brand')}}" name="bike-brand">
+            @error('bike-brand')
+                <div class="form-error">
+                    {{$message}}
+                </div>
+            @enderror            
         </div>
         <div>            
             <button class="border-1" type="submit">Submit</button>

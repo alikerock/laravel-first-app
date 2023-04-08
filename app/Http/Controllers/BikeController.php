@@ -42,12 +42,19 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'bike-name' => 'required',
+            'bike-brand' => 'required',
+            'bike-price' => ['required', 'integer']
+        ]);
+
         //POST
         $bike = new Bike(); //로드한 bike 모델을 통해 새 인스턴스(객체) 생성
 
-        $bike->name = $request->input('bike-name');
-        $bike->brand = $request->input('bike-brand');
-        $bike->price = $request->input('bike-price');
+        $bike->name = strip_tags($request->input('bike-name'));
+        $bike->brand = strip_tags($request->input('bike-brand'));
+        $bike->price = strip_tags($request->input('bike-price'));
 
         $bike->save();
         return redirect()->route('bikes.index'); //table에 값 index 페이지로 이동
