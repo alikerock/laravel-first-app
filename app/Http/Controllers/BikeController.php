@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bike;
+use App\Http\Requests\BikeFormRequest;
 
 class BikeController extends Controller
 {
@@ -40,21 +41,17 @@ class BikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BikeFormRequest $request)
     {
 
-        $request->validate([
-            'bike-name' => 'required',
-            'bike-brand' => 'required',
-            'bike-price' => ['required', 'integer']
-        ]);
+        $data = $request->validated();
 
         //POST
         $bike = new Bike(); //로드한 bike 모델을 통해 새 인스턴스(객체) 생성
 
-        $bike->name = strip_tags($request->input('bike-name'));
-        $bike->brand = strip_tags($request->input('bike-brand'));
-        $bike->price = strip_tags($request->input('bike-price'));
+        $bike->name = $data['bike-name'];
+        $bike->brand = $data['bike-brand'];
+        $bike->price = $data['bike-price'];
 
         $bike->save();
         return redirect()->route('bikes.index'); //table에 값 index 페이지로 이동
@@ -63,34 +60,40 @@ class BikeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $bike)
+    public function show(Bike $bike) 
     {
-        //
-        $bikes = self::getData();
-        $index = array_search($bike, array_column($bikes, 'id'));
 
-        if($index === false){
-            abort(404);
-        }
         return view('bikes.show', [
-            'bike'=>$bikes[$index]
+            'bike'=>$bike
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Bike $bike) 
     {
         //
+        return view('bikes.edit', [
+            'bike'=>$bike
+        ]);        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BikeFormRequest $request, Bike $bike)
     {
         //
+        $data = $request->validated();
+
+        //POST
+        $bike->name = $data['bike-name'];
+        $bike->brand = $data['bike-brand'];
+        $bike->price = $data['bike-price'];
+
+        $bike->save();
+        return redirect()->route('bikes.show', $bike->id);    
     }
 
     /**
